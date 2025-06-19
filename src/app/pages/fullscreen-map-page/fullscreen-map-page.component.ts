@@ -36,10 +36,10 @@ mapboxgl.accessToken = environment.mapboxKey;
 export class FullscreenMapPageComponent implements AfterViewInit {
   divElement = viewChild<ElementRef>('mapa');
   map = signal<mapboxgl.Map | null>(null);
-  zoom = signal<number>(14);
+  zoom = signal<number>(5);
   coordinates = signal({
-    lng: -74.5,
-    lat: 40,
+    lng: -73.0799,
+    lat: 5.5191,
   });
   zoomEffect = effect(() => {
     if (!this.map()) return;
