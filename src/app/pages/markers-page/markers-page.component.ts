@@ -1,8 +1,7 @@
 import { Component, ElementRef, signal, viewChild } from '@angular/core';
-import mapboxgl, { LngLat, LngLatLike } from 'mapbox-gl';
-import { environment } from '../../../environments/environment';
+import mapboxgl, { LngLatLike } from 'mapbox-gl';
 import { v4 as UUIDv4 } from 'uuid';
-import { JsonPipe } from '@angular/common';
+import { environment } from '@environments/environment';
 import { CoordinatesFormatPipe } from '../../shared/pipes/coordinates-format.pipe';
 
 mapboxgl.accessToken = environment.mapboxKey;
