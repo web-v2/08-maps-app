@@ -3,6 +3,7 @@ import mapboxgl, { LngLat, LngLatLike } from 'mapbox-gl';
 import { environment } from '../../../environments/environment';
 import { v4 as UUIDv4 } from 'uuid';
 import { JsonPipe } from '@angular/common';
+import { CoordinatesFormatPipe } from '../../shared/pipes/coordinates-format.pipe';
 
 mapboxgl.accessToken = environment.mapboxKey;
 
@@ -13,7 +14,7 @@ interface Marker {
 
 @Component({
   selector: 'app-markers-page',
-  imports: [JsonPipe],
+  imports: [CoordinatesFormatPipe],
   templateUrl: './markers-page.component.html',
 })
 export class MarkersPageComponent {
@@ -27,14 +28,11 @@ export class MarkersPageComponent {
     const element = this.divElement()!.nativeElement;
 
     const map = new mapboxgl.Map({
-      container: element, // container ID
-      style: 'mapbox://styles/mapbox/streets-v12', // style URL
-      center: [-122.4, 37.8], // starting position [lng, lat]
-      zoom: 10, // starting zoom
+      container: element,
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [-75.3957, 9.2943],
+      zoom: 5,
     });
-    /* const marker = new mapboxgl.Marker({ draggable: false, color: 'red' })
-      .setLngLat([-122.4, 37.8])
-      .addTo(map); */
     this.mapListeners(map);
   }
   mapListeners(map: mapboxgl.Map) {
@@ -69,5 +67,14 @@ export class MarkersPageComponent {
     this.map()?.flyTo({
       center: lngLat,
     });
+  }
+
+  deleteMarker(marker: Marker) {
+    if (!this.map()) return;
+    const markerToDelete = this.markers().find((m) => m.id === marker.id);
+    if (!markerToDelete) return;
+
+    markerToDelete.mapboxMarker.remove();
+    this.markers.set(this.markers().filter((m) => m.id !== marker.id));
   }
 }

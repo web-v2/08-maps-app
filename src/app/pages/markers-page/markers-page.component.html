@@ -1,20 +1,21 @@
-<div #map class="h-[calc(100vh-64px)] bg-amber-400"></div>
+<div #map class="h-[60vh] sm:h-[calc(100vh-64px)] bg-amber-400"></div>
 
-<section class="fixed w-[260px] bg-white rounded top-20 left-10 p-5">
+<section class="h-[40vh] sm:fixed sm:w-[260px] bg-white sm:rounded sm:top-20 sm:left-10 p-5 overflow-y-scroll">
   <h2 class="text-xl font-bold text-black mb-2">Marcadores</h2>
   <div class="flex flex-col gap-2">
     @for (marker of markers(); track marker.id) {
       <div class="form-control" (click)="flyToMarker(marker.mapboxMarker.getLngLat())">
-        <label class="label cursor-pointer items-start space-x-2">
-          <span class="label-text text-black text-xs break-words max-w-full overflow-hidden">
-            {{ marker.mapboxMarker.getLngLat() | json }}
+        <label class="label cursor-pointer items-center space-x-2 flex w-full">
+          <span class="text-red-500 font-bold flex items-center hover:text-red-700 transition-colors" (click)="deleteMarker(marker)">X</span>
+          <span class="label-text text-black text-xs whitespace-pre flex-1">
+            {{ marker.mapboxMarker.getLngLat() | coordinatesFormat }}
           </span>
           <input
             type="radio"
             name="radio-10"
             checked="checked"
             [style]="{ backgroundColor: marker.mapboxMarker._color }"
-            class="radio bg-red-300 shrink-0" />
+            class="radio bg-red-300 shrink-0 self-start mt-1 flex items-center" />
         </label>
       </div>
     } @empty {
