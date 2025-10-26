@@ -7,7 +7,7 @@ import {
   viewChild,
 } from '@angular/core';
 import mapboxgl from 'mapbox-gl';
-import { environment } from '@environments/environment';
+import { environment } from '../../../../environments/environment';
 mapboxgl.accessToken = environment.mapboxKey;
 
 @Component({
